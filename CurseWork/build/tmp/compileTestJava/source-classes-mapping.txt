@@ -1,0 +1,2 @@
+ru/mirea/cursework/CurseWorkApplicationTests.java
+ ru.mirea.cursework.CurseWorkApplicationTests

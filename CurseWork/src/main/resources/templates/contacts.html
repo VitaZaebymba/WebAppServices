@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/%22%3E">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Личный кабинет</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-grid.min.css}">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,400&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"><!--Иконка-->
+</head>
+<body>
+<div id="header">
+    <div>
+        <p id ="logo"><a href="/">&#x2739; VitaProfi</a></p>
+        <p id ="logo2"><a href="/">Многопрофильный сервис по оказу услуг<br>в Новиграде</a></p>
+    </div>
+
+    <div id="adress">
+        <p><b>Адрес: </b> Долина Понтара, Новиград
+            <br><br><b>Тел.</b> +7(926)-481-64-20
+            <br><br><b>Часы работы:</b> ежедневно с 9.00-21.00</p>
+    </div>
+    <nav id="menu">
+        <ul>
+            <li><a href="/">Услуги</a></li>
+            <li><a href="/reviews">Отзывы</a></li>
+            <li><a href="/contacts">Личный кабинет</a></li>
+            <li><a href="/reg">Регистрация</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-9 align-self-center">
+
+            <div id="container_demo" >
+                <!-- спрятанный якорь, чтобы избежать прыжков http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                <a class="hiddenanchor" id="tosubscribe"></a>
+                <a class="hiddenanchor" id="tologin"></a>
+                <div style="margin-top: 130px;" th:if = "${User}!=null" >
+                    <!-- Здесь выводится инфа о авторизованном пользователе-->
+                    <div th:text = "${User.username}"></div>
+                    <div th:text = "${User.mail}"></div>
+                    <div th:each="el : ${Report}">
+
+                        <div th:if="${User.mail}==${el.mail}">
+                            <div>-------------------------------------------------------
+                            <!-- Здесь выводится инфа о записях (поля класса Report)-->
+                            <p th:text="${el.serv}"></p>
+                            <p th:text="${el.name}"></p>
+                            <p th:text="${el.mail}"></p>
+                            <p th:text="${el.date}"></p>
+                            <p th:text="${el.note}"></p>
+                        </div>
+                        </div>
+                    </div><br><br>
+                    <div><a class="logout" href="/logout">Выйти из личного кабинета</a></div></div>
+
+                <div th:if = "${User}==null" id="wrapper">
+                    <div id="login" class="animate form">
+                        <form class = "form" method="post" autocomplete="on">
+                            <input
+                                    type="hidden"
+                                    th:name="${_csrf.parameterName}"
+                                    th:value="${_csrf.token}" />
+                            <h1 style="margin-top: 130px;">Личный кабинет</h1>
+                            <p>
+                                <label for="username" class="uname" data-icon="u">Имя пользователя</label>
+                                <input id="username" name="username" required="required" type="text" placeholder="Geralt"/>
+                            </p>
+                            <p>
+                                <label for="emailsignup" class="youmail" data-icon="e" >Ваш email</label>
+                                <input id="emailsignup" name="emailsignup" required="required" type="text" placeholder="plotva@mail.ru"/>
+                            </p>
+                            <p>
+                                <label for="password" class="youpasswd" data-icon="p"> Ваш пароль </label>
+                                <input id="password" name="password" required="required" type="password" placeholder="1272" />
+                            </p>
+                            <p class="keeplogin">
+                                <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
+                                <label for="loginkeeping">Запомнить меня</label>
+                            </p>
+                            <p>
+                                <input class="signin button" type="submit" value="Log in" />
+                            </p>
+                            <p class="change_link">
+                                Еще нет аккаунта?
+                                <a href="/reg" class="to_subscribe">Присоединяйтесь к нам!</a>
+                            </p>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="footer">
+    <div class="row">
+        <div class="col-md-2 align-self-center">
+            <ul>
+                <li><a href="/">Услуги</a></li>
+                <li><a href="/reviews">Отзывы</a></li>
+                <li><a href="/contacts">Личный кабинет</a></li>
+
+            </ul>
+        </div>
+        <div class="col-md-2 align-self-center">
+            <ul><li><a href="/reg">&#9745; Регистрация</a></li></ul>
+        </div>
+        <div class="col-md-4 align-self-center">
+            VitaProfi. Все права защищены. &copy;2022г.
+        </div>
+        <div class="col-md-4 align-self-center">
+            Соц.сети:<br>
+            <a href="#"><img src="img/vk.png" alt=""></a>
+            <a href="#"><img src="img/facebook.png" alt=""></a>
+            <a href="#"><img src="img/instagram.png" alt=""></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
